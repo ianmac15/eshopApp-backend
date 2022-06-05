@@ -1,33 +1,33 @@
 package thankous.eshopAppbackend.controllers;
 
-import com.ianmac.webapp3.model.Car;
-import com.ianmac.webapp3.service.CarServiceImpl;
 import org.springframework.web.bind.annotation.*;
+import thankous.eshopAppbackend.models.Product;
+import thankous.eshopAppbackend.services.ProductServiceImpl;
 
 import java.util.List;
 
 //@CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/car")
+@RequestMapping("/api/product")
 public class ProductController {
 
 //    @Autowired
-    private CarServiceImpl carService;
+    private ProductServiceImpl productService;
 
-    public ProductController(CarServiceImpl carService) {
-        this.carService = carService;
+    public ProductController(ProductServiceImpl productService) {
+        this.productService = productService;
     }
 
     @GetMapping
-    public List<Car> getAllCars() {
-        return carService.getAllCars();
+    public List<Product> getAllProducts() {
+        return productService.getAllProducts();
     }
 
     @GetMapping("/{id}")
-    public Car getCar(@PathVariable(value = "id") long id) {
+    public Product getProduct(@PathVariable(value = "id") long id) {
 
-        return carService.getCarById(id);
-//        Car user = this.carRepository.findById(id).orElseThrow(
+        return productService.getProductById(id);
+//        Product user = this.productRepository.findById(id).orElseThrow(
 //                ()-> new ResourceNotFoundException("User not found")
 //        );
 //
@@ -37,41 +37,41 @@ public class ProductController {
     }
 
     @PostMapping
-    public Car addCar(@RequestBody Car car) {
-        Car car1 = carService.saveCar(car);
-        return car1;
+    public Product addProduct(@RequestBody Product product) {
+        Product product1 = productService.saveProduct(product);
+        return product1;
     }
 
     @PutMapping("/{id}")
-    public Car updateCar(@PathVariable(value = "id") long id, @RequestBody Car car) {
-        Car car1 = carService.updateCar(id, car);
-        return car1;
-//        return new ResponseEntity<>(car1, HttpStatus.OK);
+    public Product updateProduct(@PathVariable(value = "id") long id, @RequestBody Product product) {
+        Product product1 = productService.updateProduct(id, product);
+        return product1;
+//        return new ResponseEntity<>(product1, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCar(@PathVariable(value = "id") long id) {
-        carService.deleteCarById(id);
+    public void deleteProduct(@PathVariable(value = "id") long id) {
+        productService.deleteProductById(id);
     }
 
     @DeleteMapping
-    public void deleteAllCars() {
-        carService.deleteAllCars();
+    public void deleteAllProducts() {
+        productService.deleteAllProducts();
     }
 
 
-//    @PostMapping("addCar")
-//    public ResponseEntity<Object> addNewCar(@RequestBody Car car) {
-//        carService.saveCar(car);
+//    @PostMapping("addProduct")
+//    public ResponseEntity<Object> addNewProduct(@RequestBody Product product) {
+//        productService.saveProduct(product);
 //
-//        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(car.getId()).toUri();
+//        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(product.getId()).toUri();
 //        return ResponseEntity.created(location).build();
 //    }
 
-//    @PostMapping("newcar/{carVariables}")
-//    public String newCar(@PathVariable(value = "carVariables") String[] aCar) {
-//        carService.saveCar(new Car(aCar[0],aCar[1],aCar[2]));
-//        return "Car " + aCar[0] + " has been added to the list.";
+//    @PostMapping("newproduct/{productVariables}")
+//    public String newProduct(@PathVariable(value = "productVariables") String[] aProduct) {
+//        productService.saveProduct(new Product(aProduct[0],aProduct[1],aProduct[2]));
+//        return "Product " + aProduct[0] + " has been added to the list.";
 //    }
 
 

@@ -1,16 +1,13 @@
 package thankous.eshopAppbackend.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 //@Data
 //@NoArgsConstructor
 //@AllArgsConstructor
 public class Product {
-
 
     private String name;
     private String category;
@@ -21,6 +18,9 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @ManyToMany
+    private Set<Cart> carts;
 
     public Product() {
     }
