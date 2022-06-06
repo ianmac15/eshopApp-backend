@@ -8,26 +8,39 @@ import java.util.Set;
 public class Cart {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String name;
+
     @ManyToMany
+    @JoinTable(name = "product_cart", joinColumns = @JoinColumn(name = "cart_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
     private Set<Product> products = new HashSet<>();
 
     public Cart() {
     }
 
-    public Cart(Set<Product> products) {
+    public Cart(String name) {
+        this.name = name;
+    }
+
+    public Cart(String name, Set<Product> products) {
+        this.name = name;
         this.products = products;
     }
 
-    public Long getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
+
+
+
+
 
     public Set<Product> getProducts() {
         return products;
@@ -44,11 +57,11 @@ public class Cart {
 
         Cart cart = (Cart) o;
 
-        return id.equals(cart.id);
+        return id != null ? id.equals(cart.id) : cart.id == null;
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return id != null ? id.hashCode() : 0;
     }
 }

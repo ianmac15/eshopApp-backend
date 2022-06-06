@@ -1,13 +1,15 @@
 package thankous.eshopAppbackend.models;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-//@Data
-//@NoArgsConstructor
-//@AllArgsConstructor
 public class Product {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private String name;
     private String category;
@@ -15,12 +17,8 @@ public class Product {
     private long quantity;
     private String image;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    @ManyToMany
-    private Set<Cart> carts;
+    @ManyToMany(mappedBy = "products")
+    private Set<Cart> carts = new HashSet<>();
 
     public Product() {
     }
@@ -31,6 +29,23 @@ public class Product {
         this.price = price;
         this.quantity = quantity;
         this.image = image;
+    }
+
+    public Product(String name, String category, String price, long quantity, String image, Set<Cart> carts) {
+        this.name = name;
+        this.category = category;
+        this.price = price;
+        this.quantity = quantity;
+        this.image = image;
+        this.carts = carts;
+    }
+
+    public Set<Cart> getCarts() {
+        return carts;
+    }
+
+    public void setCarts(Set<Cart> carts) {
+        this.carts = carts;
     }
 
     public void setName(String name) {
@@ -53,9 +68,7 @@ public class Product {
         this.image = image;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+
 
     public String getName() {
         return name;
@@ -77,9 +90,7 @@ public class Product {
         return image;
     }
 
-    public long getId() {
-        return id;
-    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -88,11 +99,11 @@ public class Product {
 
         Product product = (Product) o;
 
-        return id == product.id;
+        return id != null ? id.equals(product.id) : product.id == null;
     }
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+        return id != null ? id.hashCode() : 0;
     }
 }
