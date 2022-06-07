@@ -1,5 +1,7 @@
 package thankous.eshopAppbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,22 +10,25 @@ import java.util.Set;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
     private String category;
-    private String price;
+    private int price;
     private long quantity;
     private String image;
 
+
+//    fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE},
     @ManyToMany(mappedBy = "products")
+    @JsonIgnore
     private Set<Cart> carts = new HashSet<>();
 
     public Product() {
     }
 
-    public Product(String name, String category, String price, long quantity, String image) {
+    public Product(String name, String category, int price, long quantity, String image) {
         this.name = name;
         this.category = category;
         this.price = price;
@@ -31,13 +36,21 @@ public class Product {
         this.image = image;
     }
 
-    public Product(String name, String category, String price, long quantity, String image, Set<Cart> carts) {
+    public Product(String name, String category, int price, long quantity, String image, Set<Cart> carts) {
         this.name = name;
         this.category = category;
         this.price = price;
         this.quantity = quantity;
         this.image = image;
         this.carts = carts;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Set<Cart> getCarts() {
@@ -56,7 +69,7 @@ public class Product {
         this.category = category;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -78,7 +91,7 @@ public class Product {
         return category;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 

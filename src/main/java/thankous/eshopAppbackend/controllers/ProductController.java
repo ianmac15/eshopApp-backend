@@ -1,19 +1,21 @@
 package thankous.eshopAppbackend.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import thankous.eshopAppbackend.models.Product;
 import thankous.eshopAppbackend.services.ProductServiceImpl;
 
 import java.util.List;
 
-//@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/product")
+@RequestMapping("/api/products")
 public class ProductController {
 
 //    @Autowired
     private ProductServiceImpl productService;
 
+    @Autowired
     public ProductController(ProductServiceImpl productService) {
         this.productService = productService;
     }

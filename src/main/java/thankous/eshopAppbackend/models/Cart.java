@@ -8,11 +8,12 @@ import java.util.Set;
 public class Cart {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
+//    (fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @ManyToMany
     @JoinTable(name = "product_cart", joinColumns = @JoinColumn(name = "cart_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
@@ -38,9 +39,13 @@ public class Cart {
         this.name = name;
     }
 
+    public Long getId() {
+        return id;
+    }
 
-
-
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Set<Product> getProducts() {
         return products;

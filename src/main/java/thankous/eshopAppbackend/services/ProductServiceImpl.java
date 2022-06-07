@@ -1,6 +1,7 @@
 package thankous.eshopAppbackend.services;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import thankous.eshopAppbackend.exceptions.ResourceNotFoundException;
 import thankous.eshopAppbackend.models.Product;
@@ -13,8 +14,9 @@ import java.util.Optional;
 public class ProductServiceImpl implements ProductService {
 
 //    @Autowired
-    private final ProductRepository productRepository;
+    private ProductRepository productRepository;
 
+    @Autowired
     public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
