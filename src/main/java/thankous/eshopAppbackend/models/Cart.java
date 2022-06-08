@@ -9,7 +9,7 @@ import java.util.Set;
 public class Cart {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
@@ -19,6 +19,9 @@ public class Cart {
     @JoinTable(name = "product_cart", joinColumns = @JoinColumn(name = "cart_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     private Set<Product> products = new HashSet<>();
+
+    @OneToOne(mappedBy = "cart")
+    private User user;
 
     public Cart() {
     }
@@ -30,6 +33,14 @@ public class Cart {
     public Cart(String name, Set<Product> products) {
         this.name = name;
         this.products = products;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getName() {
