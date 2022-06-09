@@ -34,25 +34,25 @@ public class User {
     @Size(max = 50)
     private String email;
 
-//    @OneToOne(cascade = CascadeType.ALL)
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+//    @OneToOne
     @JoinColumn(name = "cart_id", referencedColumnName = "id")
     private Cart cart;
 
-//    @ManyToMany(fetch = FetchType.LAZY)
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
+//    @ManyToMany
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
     public User() {
-        cart = new Cart();
+
     }
 
     public User(@NotBlank @Size(max = 20) String username, @NotBlank @Size(max = 120) String password, @Email @NotBlank @Size(max = 50) String email) {
         this.username = username;
         this.password = password;
         this.email = email;
-        cart = new Cart();
+        cart = new Cart(username+"'s cart");
     }
 
     public Long getId() {

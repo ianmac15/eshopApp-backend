@@ -22,7 +22,7 @@ public class Product {
 
 
 //    fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-    @ManyToMany(mappedBy = "products")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "products")
     @JsonIgnore
     private Set<Cart> carts = new HashSet<>();
 

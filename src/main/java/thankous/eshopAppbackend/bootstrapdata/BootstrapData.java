@@ -36,8 +36,7 @@ public class BootstrapData implements CommandLineRunner {
         productRepository.save(samsungGalaxy);
         productRepository.save(iphone);
 
-//        Cart cart1 = new Cart("cartA");
-//        Cart cart2 = new Cart("cartB");
+
         Role userRole = new Role((ERole.ROLE_USER));
         Role adminRole = new Role(ERole.ROLE_ADMIN);
         roleRepository.save(userRole);
@@ -51,6 +50,7 @@ public class BootstrapData implements CommandLineRunner {
         jim.getRoles().add(userRole);
         userRepository.save(bob);
         userRepository.save(jim);
+        userRepository.save(administrator);
 
 
         cartRepository.save(bob.getCart());
