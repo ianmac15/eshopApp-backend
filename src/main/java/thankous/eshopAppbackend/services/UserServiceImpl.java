@@ -55,16 +55,13 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User updateUser(User user, long id) {
-        Optional<User> optionalUser = userRepository.findById(id);
-        if (optionalUser.isPresent()) {
-            User updatedUser = new User();
-            User oldUser = optionalUser.get();
-
-            updatedUser.setRoles();
-
-            return updatedUser;
-        }
-        throw new ResourceNotFoundException("User with id: "+id+", doesn't exist!");
+    public User updateUser(User oldUser, long id) {
+            User newUser = getUserById(id);
+            newUser.setRoles(oldUser.getRoles());
+            newUser.setCart(oldUser.getCart());
+            newUser.setEmail(oldUser.getEmail());
+            newUser.setUsername(oldUser.getUsername());
+            newUser.setPassword(oldUser.getPassword());
+            return newUser;
     }
 }
