@@ -1,8 +1,11 @@
 package thankous.eshopAppbackend.models;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+
 
 @Entity
 @Table(name = "cart")

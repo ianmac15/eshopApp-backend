@@ -1,11 +1,15 @@
 package thankous.eshopAppbackend.models;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
+
 
 
 
@@ -35,12 +39,10 @@ public class User {
     private String email;
 
     @OneToOne(cascade = CascadeType.ALL)
-//    @OneToOne
     @JoinColumn(name = "cart_id", referencedColumnName = "id")
     private Cart cart;
 
     @ManyToMany(fetch = FetchType.LAZY)
-//    @ManyToMany
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
@@ -48,7 +50,8 @@ public class User {
 
     }
 
-    public User(@NotBlank @Size(max = 20) String username, @NotBlank @Size(max = 120) String password, @Email @NotBlank @Size(max = 50) String email) {
+    public User(@NotBlank @Size(max = 20) String username, @NotBlank @Size(max = 120) String password,
+                @Email @NotBlank @Size(max = 50) String email) {
         this.username = username;
         this.password = password;
         this.email = email;
